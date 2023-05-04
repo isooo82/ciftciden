@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               const UpperPlaceHolder(),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 5.h),
+                padding: EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 0.h),
                 child: Column(
                   children: [
                     const CiftcidenTextField(icon: Icons.phone_android, text: "Telefon Numaranızı Girin"),
@@ -45,7 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text('Parolayı hatırla'),
                       ],
                     ),
-                    const SizedBox(height: 10),
                     GestureDetector(
                       onTap: () {
                         // Forgot Password Tıklanınca Yapılacak İşlemler
@@ -81,6 +80,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           TabBar(
                             indicatorColor: Colors.blue,
                             labelColor: Colors.blue,
+                            onTap: (int page) {
+                              if(page == 0) {
+                                Navigator.pushReplacementNamed(context, "/");
+
+                              } else {
+                                Navigator.pushReplacementNamed(context, "/register");
+                              }
+                              
+                            },
                             /*  underLineColor: Colors.grey,*/
                             tabs: [
                               Tab(

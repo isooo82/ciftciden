@@ -24,7 +24,7 @@ class CiftcidenApp extends StatelessWidget {
       ],
       child: Sizer(
         builder: (context, orientation, deviceType) {
-          return const MaterialApp(
+          return MaterialApp(
             // theme: darkTheme,
             title: "Çiftçiden",
             // localizationsDelegates: const [
@@ -35,7 +35,7 @@ class CiftcidenApp extends StatelessWidget {
             // ],
             // supportedLocales: S.delegate.supportedLocales,
             // locale: Locale(getLanguageCode(context)),
-
+            theme: ThemeData(useMaterial3: true),
             themeMode: ThemeMode.system,
             debugShowCheckedModeBanner: false,
             // initialRoute: ROUTE_ANIMATED_SPLASH_SCREEN,

@@ -1,4 +1,5 @@
 import 'package:ciftciden/ui/common_widgets/atoms/ciftciden_text_field.dart';
+import 'package:ciftciden/ui/common_widgets/organisms/upper_place_holder.dart';
 import 'package:ciftciden/ui/constants/paths.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -19,43 +20,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
+          height: 100.h,
           child: Column(
             children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.35,
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5.h),
-                      child: Image.asset(CiftcidenPaths.ciftcidenLogo),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 10.w),
-                          child: Image.asset(CiftcidenPaths.sutKovasi, width: 15.w, height: 10.h),
-                        ),
-                        const Text(
-                          'ÇİFTÇİDEN',
-                          style: TextStyle(
-                            fontFamily: 'Open Sans',
-                            fontSize: 45,
-                            fontWeight: FontWeight.w400,
-                            height: 1.15,
-                            letterSpacing: 0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              const UpperPlaceHolder(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+                padding: EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 5.h),
                 child: Column(
                   children: [
                     const CiftcidenTextField(icon: Icons.phone_android, text: "Telefon Numaranızı Girin"),

@@ -1,5 +1,6 @@
 import 'package:ciftciden/cubit/seller/seller_cubit.dart';
 import 'package:ciftciden/cubit/user/user_cubit.dart';
+import 'package:ciftciden/ui/screens/home/home_screen.dart';
 import 'package:ciftciden/ui/screens/log_in/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +48,7 @@ class CiftcidenApp extends StatelessWidget {
             routes: {
               "/": (context) =>
             const LoginScreen(),
+              "/ana-ekran": (context) => HomeScreen()
             },
           );
         },

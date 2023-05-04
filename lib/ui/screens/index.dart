@@ -1,3 +1,6 @@
+import 'package:ciftciden/cubit/seller/seller_cubit.dart';
+import 'package:ciftciden/cubit/user/user_cubit.dart';
+import 'package:ciftciden/ui/screens/log_in/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -10,7 +13,8 @@ class CiftcidenApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // BlocProvider(create: (context) => ShuffleCubit()),
+        BlocProvider(create: (context) => UserCubit()),
+        BlocProvider(create: (context) => SellerCubit()),
         // BlocProvider(
         //     create: (context) => AvatarCubit(
         //         googleSignIn: GoogleSignIn(
@@ -38,12 +42,12 @@ class CiftcidenApp extends StatelessWidget {
             theme: ThemeData(useMaterial3: true),
             themeMode: ThemeMode.system,
             debugShowCheckedModeBanner: false,
-            // initialRoute: ROUTE_ANIMATED_SPLASH_SCREEN,
+            initialRoute: "/",
             // theme: ThemeData(useMaterial3: true, fontFamily: "Montserrat"),
-            // routes: {
-            //   ROUTE_ANIMATED_SPLASH_SCREEN: (context) =>
-            //       CevappAnimatedSplashScreen(openingString: openingString),
-            // },
+            routes: {
+              "/": (context) =>
+            const LoginScreen(),
+            },
           );
         },
       ),

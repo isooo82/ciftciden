@@ -49,7 +49,7 @@ class CiftcidenApp extends StatelessWidget {
             routes: {
               "/": (context) =>
             const LoginScreen(),
-              "/ana-ekran": (context) => const HomeScreen(),
+              "/home": (context) => const HomeScreen(),
               "/login": (context) => const LoginScreen(),
               "/register": (context) => const RegisterScreen()
             },

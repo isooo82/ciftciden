@@ -1,4 +1,5 @@
 import 'package:ciftciden/ui/common_widgets/atoms/ciftciden_text_field.dart';
+import 'package:ciftciden/ui/common_widgets/atoms/custom_blue_button.dart';
 import 'package:ciftciden/ui/common_widgets/organisms/upper_place_holder.dart';
 import 'package:ciftciden/ui/constants/paths.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +29,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const UpperPlaceHolder(),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 4.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 4.h),
                     child: Column(
                       children: [
-                        const CiftcidenTextField(icon: Icons.phone_android, text: "Telefon Numaranızı Girin"),
-                        const CiftcidenTextField(icon: Icons.lock, text: "Parolanızı girin"),
-
+                        const CiftcidenTextField(
+                            icon: Icons.phone_android,
+                            text: "Telefon Numaranızı Girin"),
+                        const CiftcidenTextField(
+                            icon: Icons.lock, text: "Parolanızı girin"),
                         const SizedBox(height: 10),
                         Row(
                           children: [
@@ -61,12 +65,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         SizedBox(height: 4.h),
-                        ElevatedButton(
-                          onPressed: () {
-                            // Login Butonuna Tıklanınca Yapılacak İşlemler
-                          },
-                          child: const Text('GİRİŞ YAP'),
-                        ),
+                        CustomBlueButton(
+                            text: 'GİRİŞ YAP',
+                            onPressed: () => Navigator.of(context)
+                                .pushReplacementNamed("/home")),
+                        // ElevatedButton(
+                        //   onPressed: () {
+                        //     // Login Butonuna Tıklanınca Yapılacak İşlemler
+                        //     Navigator.of(context).pushReplacementNamed("/home");
+                        //   },
+                        //   child: const Text('GİRİŞ YAP'),
+                        // ),
                       ],
                     ),
                   ),
@@ -79,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pushReplacementNamed(context, "/");
                       },
                       child: Text(
@@ -96,8 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     TextButton(
-                      onPressed: (){
-
+                      onPressed: () {
                         Navigator.pushReplacementNamed(context, "/register");
                       },
                       child: Text(

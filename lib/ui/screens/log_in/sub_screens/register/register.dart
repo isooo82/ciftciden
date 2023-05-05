@@ -42,65 +42,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
               },
               child: const Text('KAYDOL'),
             ),
-            Expanded(
-              child: Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: DefaultTabController(
-                    length: 2,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TabBar(
-                          indicatorColor: Colors.blue,
-                          labelColor: Colors.blue,
-                          onTap: (int page) {
-                            if (page == 0) {
-                              Navigator.pushReplacementNamed(context, "/");
-                            } else {
-                              Navigator.pushReplacementNamed(
-                                  context, "/register");
-                            }
-                          },
-                          /*  underLineColor: Colors.grey,*/
-                          tabs: [
-                            Tab(
-                              child: Text(
-                                'Giriş Yap',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  decoration: _rememberMe
-                                      ? TextDecoration.underline
-                                      : TextDecoration.none,
-                                  decorationColor: Colors.blue,
-                                  decorationThickness: 2,
-                                ),
-                              ),
-                            ),
-                            Tab(
-                              child: Text(
-                                'Kaydol',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  decoration: !_rememberMe
-                                      ? TextDecoration.underline
-                                      : TextDecoration.none,
-                                  decorationColor: Colors.blue,
-                                  decorationThickness: 2,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                TextButton(
+                  onPressed: (){
+                    Navigator.pushReplacementNamed(context, "/");
+                  },
+                  child: Text(
+                    'Giriş Yap',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      decoration: _rememberMe
+                          ? TextDecoration.underline
+                          : TextDecoration.none,
+                      decorationColor: Colors.blue,
+                      decorationThickness: 2,
                     ),
                   ),
                 ),
-              ),
+                TextButton(
+                  onPressed: (){
+
+                    Navigator.pushReplacementNamed(context, "/register");
+                  },
+                  child: Text(
+                    'Giriş Yap',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      decoration: _rememberMe
+                          ? TextDecoration.underline
+                          : TextDecoration.none,
+                      decorationColor: Colors.blue,
+                      decorationThickness: 2,
+                    ),
+                  ),
+                ),
+              ],
             ),
+
           ],
         ),
       ),

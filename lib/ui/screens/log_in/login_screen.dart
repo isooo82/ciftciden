@@ -22,109 +22,98 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           height: 100.h,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const UpperPlaceHolder(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 0.h),
-                child: Column(
-                  children: [
-                    const CiftcidenTextField(icon: Icons.phone_android, text: "Telefon Numaranızı Girin"),
-                    const CiftcidenTextField(icon: Icons.lock, text: "Parolanızı girin"),
-
-                    const SizedBox(height: 10),
-                    Row(
+              Column(
+                children: [
+                  const UpperPlaceHolder(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 4.h),
+                    child: Column(
                       children: [
-                        Checkbox(
-                          value: _rememberMe,
-                          onChanged: (value) {
-                            setState(() {
-                              _rememberMe = value!;
-                            });
-                          },
+                        const CiftcidenTextField(icon: Icons.phone_android, text: "Telefon Numaranızı Girin"),
+                        const CiftcidenTextField(icon: Icons.lock, text: "Parolanızı girin"),
+
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: _rememberMe,
+                              onChanged: (value) {
+                                setState(() {
+                                  _rememberMe = value!;
+                                });
+                              },
+                            ),
+                            const Text('Parolayı hatırla'),
+                          ],
                         ),
-                        const Text('Parolayı hatırla'),
+                        GestureDetector(
+                          onTap: () {
+                            // Forgot Password Tıklanınca Yapılacak İşlemler
+                          },
+                          child: const Text(
+                            'Parolamı unuttum',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 4.h),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Login Butonuna Tıklanınca Yapılacak İşlemler
+                          },
+                          child: const Text('GİRİŞ YAP'),
+                        ),
                       ],
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        // Forgot Password Tıklanınca Yapılacak İşlemler
+                  ),
+                ],
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: (){
+                        Navigator.pushReplacementNamed(context, "/");
                       },
-                      child: const Text(
-                        'Parolamı unuttum',
+                      child: Text(
+                        'Giriş Yap',
                         style: TextStyle(
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          decoration: _rememberMe
+                              ? TextDecoration.underline
+                              : TextDecoration.none,
+                          decorationColor: Colors.blue,
+                          decorationThickness: 2,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Login Butonuna Tıklanınca Yapılacak İşlemler
-                      },
-                      child: const Text('GİRİŞ YAP'),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: DefaultTabController(
-                      length: 2,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TabBar(
-                            indicatorColor: Colors.blue,
-                            labelColor: Colors.blue,
-                            onTap: (int page) {
-                              if(page == 0) {
-                                Navigator.pushReplacementNamed(context, "/");
+                    TextButton(
+                      onPressed: (){
 
-                              } else {
-                                Navigator.pushReplacementNamed(context, "/register");
-                              }
-                              
-                            },
-                            /*  underLineColor: Colors.grey,*/
-                            tabs: [
-                              Tab(
-                                child: Text(
-                                  'Giriş Yap',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: _rememberMe
-                                        ? TextDecoration.underline
-                                        : TextDecoration.none,
-                                    decorationColor: Colors.blue,
-                                    decorationThickness: 2,
-                                  ),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  'Kaydol',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    decoration: !_rememberMe
-                                        ? TextDecoration.underline
-                                        : TextDecoration.none,
-                                    decorationColor: Colors.blue,
-                                    decorationThickness: 2,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                        Navigator.pushReplacementNamed(context, "/register");
+                      },
+                      child: Text(
+                        'Giriş Yap',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          decoration: _rememberMe
+                              ? TextDecoration.underline
+                              : TextDecoration.none,
+                          decorationColor: Colors.blue,
+                          decorationThickness: 2,
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],

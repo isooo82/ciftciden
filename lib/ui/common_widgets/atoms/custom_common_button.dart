@@ -15,7 +15,7 @@ class CustomCommonButton extends StatelessWidget {
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(30.0),
             // You can also specify other border properties here
           ),
           side: const BorderSide(
@@ -24,8 +24,8 @@ class CustomCommonButton extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Text(text, style: const TextStyle(color: Colors.black)),
+          padding: EdgeInsets.symmetric(horizontal: 14.5.w),
+          child: Text(text, style: TextStyle(color: Colors.black, fontSize: 14.sp)),
         ));
   }
 }

@@ -1,5 +1,7 @@
 import 'package:ciftciden/ui/common_widgets/atoms/custom_common_button.dart';
 import 'package:ciftciden/ui/common_widgets/organisms/upper_place_holder_with_houses.dart';
+import 'package:ciftciden/ui/screens/home/sub_screens/main/components/current_orders.dart';
+import 'package:ciftciden/ui/screens/home/sub_screens/main/components/previous_orders.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -7,15 +9,41 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const UpperPlaceHolderWithHouses(),
-          const Center(child: Text("Main Screen")),
-          CustomCommonButton(text: "Siparis Ver", onPressed: () {})
+    return DefaultTabController(
+      length: 2,
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            UpperPlaceHolderWithHouses(),
+            TabBar(
+                labelColor: Colors.black,
+                indicatorColor: Colors.black,
+                tabs: [
+              Tab(
+                child: Text(
+                  "Geçmiş Siparişler",
+                ),
+              ),
+              Tab(child: Text("Aktif Siparişler")),
+            ]),
+            Expanded(
+              flex: 5,
+                child: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
+              children: [
+                PreviousOrdersScreen(),
+                CurrentOrdersScreen(),
+              ],
+            )),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: CustomCommonButton(
+                  text: "Sipariş Talebi Oluştur", onPressed: () {}),
+            )
 
-        ],
+          ],
+        ),
       ),
     );
   }

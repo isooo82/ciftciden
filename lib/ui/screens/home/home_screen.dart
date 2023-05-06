@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int index = 2;
+  int prevIndex = 2;
 
   final List<Widget> pages = [
     const ProfileScreen(),
@@ -28,23 +29,40 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onHorizontalDragEnd: (DragEndDetails details) {
-        if (details.primaryVelocity! > 0) {
-          if (index > 0) {
-            setState(() {
-              index--;
-            });
-          }
-        } else if (details.primaryVelocity! < 0) {
-          if (index < pages.length - 1) {
-            setState(() {
-              index++;
-            });
-          }
-        }
-      },
+      // onHorizontalDragEnd: (DragEndDetails details) {
+      //   if (details.primaryVelocity! > 0) {
+      //     if (index > 0) {
+      //       setState(() {
+      //         index--;
+      //       });
+      //     }
+      //   } else if (details.primaryVelocity! < 0) {
+      //     if (index < pages.length - 1) {
+      //       setState(() {
+      //         index++;
+      //       });
+      //     }
+      //   }
+      // },
       child: Scaffold(
-          body: pages[index],
+          body: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 280),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return SlideTransition(
+                  position: // TODO: ekranin saga mi sola mi gectigini kontrol icin bir onceki degeri bilmemiz gerekiyor
+                      index > prevIndex
+                          ? Tween<Offset>(
+                                  begin: const Offset(1, 0),
+                                  end: const Offset(0.0, 0))
+                              .animate(animation)
+                          : Tween<Offset>(
+                                  begin: const Offset(-1, 0),
+                                  end: const Offset(0.0, 0))
+                              .animate(animation),
+                  child: child,
+                );
+              },
+              child: pages[index]),
           bottomNavigationBar: CiftcidenBottomNavigation(
             currentIndex: index,
             onTabSelected: changePageIndex,
@@ -56,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (index != currentIndex) {
       setState(() {
         this.index = index;
+        prevIndex = currentIndex;
       });
     }
   }

@@ -12,7 +12,7 @@ class UpperPlaceHolderWithHouses extends StatelessWidget {
       width: double.infinity,
       child: Padding(
         padding: EdgeInsets.only(right: 0.w),
-        child: Image.asset(CiftcidenPaths.osmaneliKonaklari, fit: BoxFit.fitHeight),
+        child: Image.asset(CiftcidenPaths.osmaneliKonaklari, fit: BoxFit.cover),
       ),
     );
   }

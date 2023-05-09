@@ -21,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> pages = [
     const ProfileScreen(),
     const OrderScreen(),
-    const MainScreen(),
     const ContactScreen(),
     const SettingsScreen()
   ];
@@ -62,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: child,
                 );
               },
-              child: pages[index]),
+              child: returnPage(pageIndex: index)),
           bottomNavigationBar: CiftcidenBottomNavigation(
             currentIndex: index,
             onTabSelected: changePageIndex,
@@ -70,6 +69,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  returnPage({required int pageIndex}){
+    if(pageIndex == 2) {
+      return MainScreen(onTabSelected: changePageIndex,);
+    }
+    if(pageIndex > 2) {
+      pageIndex--;
+    }
+    return pages[pageIndex];
+  }
   changePageIndex({required int index, required int currentIndex}) {
     if (index != currentIndex) {
       setState(() {

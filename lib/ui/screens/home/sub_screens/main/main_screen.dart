@@ -5,7 +5,8 @@ import 'package:ciftciden/ui/screens/home/sub_screens/main/components/previous_o
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  final Function({required int index, required int currentIndex}) onTabSelected;
+  const MainScreen({Key? key, required this.onTabSelected}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,9 @@ class MainScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: CustomCommonButton(
-                  text: "Sipariş Talebi Oluştur", onPressed: () {}),
+                  text: "Sipariş Talebi Oluştur", onPressed: () {
+                    onTabSelected(index: 1, currentIndex: 2);
+              }),
             )
 
           ],

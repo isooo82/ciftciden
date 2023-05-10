@@ -44,24 +44,25 @@ class _HomeScreenState extends State<HomeScreen> {
       //   }
       // },
       child: Scaffold(
-          body: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 280),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return SlideTransition(
-                  position: // TODO: ekranin saga mi sola mi gectigini kontrol icin bir onceki degeri bilmemiz gerekiyor
-                      index > prevIndex
-                          ? Tween<Offset>(
-                                  begin: const Offset(1, 0),
-                                  end: const Offset(0.0, 0))
-                              .animate(animation)
-                          : Tween<Offset>(
-                                  begin: const Offset(-1, 0),
-                                  end: const Offset(0.0, 0))
-                              .animate(animation),
-                  child: child,
-                );
-              },
-              child: returnPage(pageIndex: index)),
+          body: returnPage(pageIndex: index),
+          // AnimatedSwitcher(
+          //     duration: const Duration(milliseconds: 280),
+          //     transitionBuilder: (Widget child, Animation<double> animation) {
+          //       return SlideTransition(
+          //         position: // TODO: ekranin saga mi sola mi gectigini kontrol icin bir onceki degeri bilmemiz gerekiyor
+          //             index > prevIndex
+          //                 ? Tween<Offset>(
+          //                         begin: const Offset(1, 0),
+          //                         end: const Offset(0.0, 0))
+          //                     .animate(animation)
+          //                 : Tween<Offset>(
+          //                         begin: const Offset(-1, 0),
+          //                         end: const Offset(0.0, 0))
+          //                     .animate(animation),
+          //         child: child,
+          //       );
+          //     },
+          //     child: returnPage(pageIndex: index)),
           bottomNavigationBar: CiftcidenBottomNavigation(
             currentIndex: index,
             onTabSelected: changePageIndex,

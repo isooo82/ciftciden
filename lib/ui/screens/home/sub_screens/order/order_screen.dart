@@ -12,6 +12,7 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  int chosen = 0;
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
@@ -24,7 +25,7 @@ class _OrderScreenState extends State<OrderScreen> {
           Flexible(
               flex: 4,
               child: Container(
-                color: Colors.white,
+                // color: Colors.white,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +33,23 @@ class _OrderScreenState extends State<OrderScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            chosen = 0;
+                          });
+                        },
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: chosen == 0
+                              ? Colors.blueGrey.shade100
+                              : Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          side: const BorderSide(
+                            color: Colors.transparent,
+                            width: 0.0,
+                          ),
+                        ),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -42,9 +59,7 @@ class _OrderScreenState extends State<OrderScreen> {
                             Text(
                               "Süt",
                               style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold,
-                                  decoration: TextDecoration.underline),
+                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -53,7 +68,23 @@ class _OrderScreenState extends State<OrderScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            chosen = 1;
+                          });
+                        },
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: chosen == 1
+                              ? Colors.blueGrey.shade100
+                              : Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          side: const BorderSide(
+                            color: Colors.transparent,
+                            width: 0.0,
+                          ),
+                        ),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -63,9 +94,7 @@ class _OrderScreenState extends State<OrderScreen> {
                             Text(
                               "Yoğurt",
                               style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold,
-                                  decoration: TextDecoration.underline),
+                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -77,9 +106,9 @@ class _OrderScreenState extends State<OrderScreen> {
           Flexible(
               flex: 7,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.w),
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 2.h),
                 child: Container(
-                  color: Colors.white,
+                  // color: Colors.white,
                   child: FormBuilder(
                     key: _formKey,
                     child: Column(
@@ -87,28 +116,51 @@ class _OrderScreenState extends State<OrderScreen> {
                         Row(
                           children: [
                             Expanded(
+                              flex: 5,
                               child: FormBuilderTextField(
+                                decoration: const InputDecoration(
+                                  labelText: 'Miktar',
+                                  border: OutlineInputBorder(),
+                                ),
                                 name: 'amount',
-                                onChanged: (val) {
-                                  print(
-                                      val); // Print the text value write into TextField
-                                },
+                                onChanged: (val) {},
                               ),
                             ),
-                            const Expanded(
-                              child: Text(
-                                'text',
+                            Expanded(
+                              flex: 4,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Container(
+                                  // add border
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(18.sp),
+                                    child: Text(
+                                      chosen == 0 ? 'litre' : 'kg',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
                         ),
+                        SizedBox(height: 2.h),
                         FormBuilderDateTimePicker(
                           name: 'date',
                           initialEntryMode: DatePickerEntryMode.calendar,
                           initialValue: DateTime.now(),
-                          inputType: InputType.both,
+                          inputType: InputType.date,
                           decoration: InputDecoration(
-                            labelText: 'Appointment Time',
+                            border: const OutlineInputBorder(),
+                            labelText: 'Tarih',
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.close),
                               onPressed: () {
@@ -117,7 +169,27 @@ class _OrderScreenState extends State<OrderScreen> {
                               },
                             ),
                           ),
-                          initialTime: const TimeOfDay(hour: 8, minute: 0),
+                          initialDatePickerMode: DatePickerMode.day,
+                          initialDate: DateTime
+                              .now(), // locale: const Locale.fromSubtags(languageCode: 'fr'),
+                        ),
+                        SizedBox(height: 2.h),
+                        FormBuilderDateTimePicker(
+                            name: 'time',
+                            initialValue: DateTime.now(),
+                            inputType: InputType.time,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: 'Saat',
+                              suffixIcon: IconButton(
+                                icon: const Icon(Icons.close),
+                                onPressed: () {
+                                  _formKey.currentState!.fields['date']
+                                      ?.didChange(null);
+                                },
+                              ),
+                            ),
+                            initialTime: TimeOfDay.now()
                           // locale: const Locale.fromSubtags(languageCode: 'fr'),
                         ),
                       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class CustomBlueButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -17,6 +18,9 @@ class CustomBlueButton extends StatelessWidget {
             primary: Colors.white
             // backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)
         ),
-        child: Text(text, style: const TextStyle(fontSize: 24)));
+        child: Padding(
+          padding: EdgeInsets.all(8.0.sp),
+          child: Text(text, style: const TextStyle(fontSize: 20)),
+        ));
   }
 }

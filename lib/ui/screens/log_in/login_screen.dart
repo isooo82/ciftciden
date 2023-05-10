@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: 4.h),
                         CustomBlueButton(
-                            text: 'GİRİŞ YAP',
+                            text: 'Giriş Yap',
                             onPressed: () => Navigator.of(context)
                                 .pushReplacementNamed("/home")),
                         // ElevatedButton(

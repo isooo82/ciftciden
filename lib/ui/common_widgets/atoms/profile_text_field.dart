@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileTextField extends StatefulWidget {
   final String text;
-  final IconData icon;
-  final IconData setting_icon;
+  // final IconData icon;
+  final String iconPath;
   final TextEditingController textEditingController;
 
-  const ProfileTextField(
-      {Key? key,
-      required this.textEditingController,
-      required this.text,
-      required this.icon,
-      required this.setting_icon})
-      : super(key: key);
+  const ProfileTextField({
+    Key? key,
+    required this.textEditingController,
+    required this.text,
+    // required this.icon,
+    required this.iconPath,
+  }) : super(key: key);
 
   @override
   State<ProfileTextField> createState() => _ProfileTextFieldState();
@@ -36,24 +37,16 @@ class _ProfileTextFieldState extends State<ProfileTextField> {
             controller: widget.textEditingController,
             decoration: InputDecoration(
               contentPadding:
-                  const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                  const EdgeInsets.fromLTRB(10, 16, 0, 16),
               filled: true,
               fillColor: const Color.fromRGBO(29, 27, 32, 0.08),
               labelText: widget.text,
-              hintStyle: const TextStyle(color: Colors.grey),
+              hintStyle: const TextStyle(color: Colors.red),
               border: const OutlineInputBorder(),
+              // prefix: Icon(widget.icon),
+              prefix: SvgPicture.asset(widget.iconPath),
             ),
           ),
-        ),
-        Expanded(
-          flex: 1,
-          child: IconButton(
-              onPressed: () {
-                setState(() {
-                  isEnabled = !isEnabled;
-                });
-              },
-              icon: Icon(widget.setting_icon)),
         ),
       ],
     );

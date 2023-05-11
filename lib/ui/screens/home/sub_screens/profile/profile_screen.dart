@@ -1,6 +1,8 @@
 import 'package:ciftciden/ui/common_widgets/atoms/profile_text_field.dart';
 import 'package:ciftciden/ui/common_widgets/organisms/upper_place_holder_with_houses.dart';
+import 'package:ciftciden/ui/constants/paths.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -21,12 +23,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     setTheUserInfo();
   }
+
   setTheUserInfo() {
-    first.text = "semih";
-    second.text = "semih";
-    third.text = "semih";
-    fourth.text = "semih";
+    first.text = "";
+    second.text = "";
+    third.text = "";
+    fourth.text = "";
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,65 +38,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           UpperPlaceHolderWithHouses(),
-          TextButton(onPressed: () {
-            setState(() {
-              first.text = "erdogan";
-            });
-          }, child: Text("Gonder")),
+          TextButton(
+              onPressed: () {
+                setState(() {
+                  first.text = "erdogan";
+                });
+              },
+              child: Text("Gonder")),
           SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               children: [
                 ProfileTextField(
-                    textEditingController: first,
-                    text: "Adınız",
-                    icon: Icons.add_alert,
-                    setting_icon: Icons.settings),
+                  textEditingController: first,
+                  text: "Adınız",
+                  iconPath: CiftcidenPaths.personSvgPath,
+                ),
+                SizedBox(height: 10),
+                ProfileTextField(
+                  textEditingController: second,
+                  text: "Soyadınız",
+                  // icon: SvgPicture.asset(
+                  //   'assets/icons/phone.svg',
+                  //   width: 24,
+                  //   height: 24,
+                  iconPath: CiftcidenPaths.phoneSvgPath,
+                ),
+                SizedBox(height: 10),
+                ProfileTextField(
+                  textEditingController: third,
+                  text: "Telefon Numaranız",
+                  iconPath: CiftcidenPaths.emailSvgPath,
+                ),
+                SizedBox(height: 10),
+                ProfileTextField(
+                  textEditingController: fourth,
+                  text: "Adresiniz",
+                  iconPath: CiftcidenPaths.locationSvgPath,
+                ),
               ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Adınız',
-                prefixIcon: Icon(Icons.person),
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Soyadınız',
-                prefixIcon: Icon(Icons.person),
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'E-posta',
-                prefixIcon: Icon(Icons.email),
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Şifre',
-                prefixIcon: Icon(Icons.lock),
-                border: OutlineInputBorder(),
-              ),
             ),
           ),
         ],

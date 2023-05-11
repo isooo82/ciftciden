@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
   final Function({required int index, required int currentIndex}) onTabSelected;
+
   const MainScreen({Key? key, required this.onTabSelected}) : super(key: key);
 
   @override
@@ -16,35 +17,35 @@ class MainScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            UpperPlaceHolderWithHouses(),
-            TabBar(
+            const UpperPlaceHolderWithHouses(),
+            const TabBar(
                 labelColor: Colors.black,
                 indicatorColor: Colors.black,
                 tabs: [
-              Tab(
-                child: Text(
-                  "Geçmiş Siparişler",
-                ),
-              ),
-              Tab(child: Text("Aktif Siparişler")),
-            ]),
-            Expanded(
-              flex: 5,
+                  Tab(
+                    child: Text(
+                      "Geçmiş Siparişler",
+                    ),
+                  ),
+                  Tab(child: Text("Aktif Siparişler")),
+                ]),
+            const Expanded(
+                flex: 5,
                 child: TabBarView(
                   physics: NeverScrollableScrollPhysics(),
-              children: [
-                PreviousOrdersScreen(),
-                CurrentOrdersScreen(),
-              ],
-            )),
+                  children: [
+                    PreviousOrdersScreen(),
+                    CurrentOrdersScreen(),
+                  ],
+                )),
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: CustomCommonButton(
-                  text: "Sipariş Talebi Oluştur", onPressed: () {
+                  text: "Sipariş Talebi Oluştur",
+                  onPressed: () {
                     onTabSelected(index: 1, currentIndex: 2);
-              }),
+                  }),
             )
-
           ],
         ),
       ),

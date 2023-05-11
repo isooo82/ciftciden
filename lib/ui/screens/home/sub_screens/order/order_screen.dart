@@ -1,3 +1,4 @@
+import 'package:ciftciden/ui/common_widgets/atoms/custom_common_button.dart';
 import 'package:ciftciden/ui/common_widgets/organisms/upper_place_holder_with_houses.dart';
 import 'package:ciftciden/ui/constants/paths.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +107,8 @@ class _OrderScreenState extends State<OrderScreen> {
           Flexible(
               flex: 7,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 2.h),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 15.w, vertical: 0.5.h),
                 child: Container(
                   // color: Colors.white,
                   child: FormBuilder(
@@ -118,6 +120,7 @@ class _OrderScreenState extends State<OrderScreen> {
                             Expanded(
                               flex: 5,
                               child: FormBuilderTextField(
+
                                 decoration: const InputDecoration(
                                   labelText: 'Miktar',
                                   border: OutlineInputBorder(),
@@ -152,7 +155,7 @@ class _OrderScreenState extends State<OrderScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 2.h),
+                        SizedBox(height: 0.5.h),
                         FormBuilderDateTimePicker(
                           name: 'date',
                           initialEntryMode: DatePickerEntryMode.calendar,
@@ -173,7 +176,7 @@ class _OrderScreenState extends State<OrderScreen> {
                           initialDate: DateTime
                               .now(), // locale: const Locale.fromSubtags(languageCode: 'fr'),
                         ),
-                        SizedBox(height: 2.h),
+                        SizedBox(height: 0.5.h),
                         FormBuilderDateTimePicker(
                             name: 'time',
                             initialValue: DateTime.now(),
@@ -190,8 +193,10 @@ class _OrderScreenState extends State<OrderScreen> {
                               ),
                             ),
                             initialTime: TimeOfDay.now()
-                          // locale: const Locale.fromSubtags(languageCode: 'fr'),
-                        ),
+                            // locale: const Locale.fromSubtags(languageCode: 'fr'),
+                            ),
+                        CustomCommonButton(
+                            text: "Siparişi Gönder", onPressed: () {})
                       ],
                     ),
                   ),

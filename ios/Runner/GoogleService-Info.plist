@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>554852653704-flh5l9gleu6vgu3ru3249m3t9ec20qfg.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.554852653704-flh5l9gleu6vgu3ru3249m3t9ec20qfg</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDyeR-1Y4_sJIJK7azh01CjhrZ-T44GlKQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>554852653704</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.ciftciden</string>
+	<key>PROJECT_ID</key>
+	<string>ciftciden-8636d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ciftciden-8636d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:554852653704:ios:9c9cb06b2f1366a04b5d3d</string>
+</dict>
+</plist>

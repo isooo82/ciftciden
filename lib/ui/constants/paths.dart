@@ -9,7 +9,7 @@ class CiftcidenPaths {
   static const String personSvgPath = "assets/icons/phone.svg";
   static const String phoneSvgPath = "assets/icons/phone.svg";
   static const String emailSvgPath = "assets/icons/phone.svg";
-  static const String locationSvgPath = "assets/icons/phonr.png";
+  static const String locationSvgPath = "assets/icons/phone.png";
   // login screen
   // register screen
   // order screen

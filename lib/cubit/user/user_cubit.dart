@@ -30,8 +30,8 @@ class UserCubit extends Cubit<UserState> {
     required bool isSeller,
     required String address,
     required String passwordAgain,
-  }) {
-    userDataRepository.signUp(name: name,
+  }) async {
+    await userDataRepository.signUp(name: name,
         username: username,
         email: email,
         address: address,

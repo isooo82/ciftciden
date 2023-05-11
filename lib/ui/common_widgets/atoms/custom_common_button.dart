@@ -24,7 +24,7 @@ class CustomCommonButton extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.5.w),
+          padding: EdgeInsets.symmetric(horizontal: 13.5.w),
           child: Text(text, style: TextStyle(color: Colors.black, fontSize: 14.sp)),
         ));
   }

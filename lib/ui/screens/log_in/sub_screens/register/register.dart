@@ -23,123 +23,196 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController passwordAgainController = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    nameController.addListener(() {
+      final String text = nameController.text.toLowerCase();
+      nameController.value = nameController.value.copyWith(
+        text: text,
+        selection:
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+    surnameController.addListener(() {
+      final String text = nameController.text.toLowerCase();
+      nameController.value = nameController.value.copyWith(
+        text: text,
+        selection:
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+    phoneController.addListener(() {
+      final String text = nameController.text.toLowerCase();
+      nameController.value = nameController.value.copyWith(
+        text: text,
+        selection:
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+    emailController.addListener(() {
+      final String text = nameController.text.toLowerCase();
+      nameController.value = nameController.value.copyWith(
+        text: text,
+        selection:
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+    addressController.addListener(() {
+      final String text = nameController.text.toLowerCase();
+      nameController.value = nameController.value.copyWith(
+        text: text,
+        selection:
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+    passwordController.addListener(() {
+      final String text = nameController.text.toLowerCase();
+      nameController.value = nameController.value.copyWith(
+        text: text,
+        selection:
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+    passwordAgainController.addListener(() {
+      final String text = nameController.text.toLowerCase();
+      nameController.value = nameController.value.copyWith(
+        text: text,
+        selection:
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: Column(
-          children: [
-            const UpperPlaceHolder(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
-              child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const UpperPlaceHolder(),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
+                child: Column(
+                  children: [
+                    CiftcidenTextField(
+                        controller: nameController,
+                        icon: Icons.message_sharp,
+                        text: "İsim"),
+                    CiftcidenTextField(
+                        controller: surnameController ,
+                        icon: Icons.message_sharp,
+                        text: "Soyisim"),
+                    CiftcidenTextField(
+                        controller: phoneController,
+                        icon: Icons.message_sharp,
+                        text: "Telefon Numarası"),
+                    CiftcidenTextField(
+                        controller: emailController,
+                        icon: Icons.message_sharp,
+                        text: "Mail Adresi"),
+                    CiftcidenTextField(
+                        controller: addressController,
+                        icon: Icons.message_sharp,
+                        text: "İkamet Adresi"),
+                    CiftcidenTextField(
+                        controller: passwordController,
+                        icon: Icons.message_sharp,
+                        text: "Parola"),
+                    CiftcidenTextField(
+                        controller: passwordAgainController,
+                        icon: Icons.message_sharp,
+                        text: "Parola Doğrula"),
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  // Login Butonuna Tıklanınca Yapılacak İşlemler
+                  if (
+                  phoneController.text.isEmpty ||
+                      nameController.text.isEmpty ||
+                      surnameController.text.isEmpty ||
+                      emailController.text.isEmpty ||
+                      addressController.text.isEmpty ||
+                      passwordController.text.isEmpty ||
+                      passwordAgainController.text.isEmpty
+                  ) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Lütfen Tüm Alanları Doldurunuz.")));
+                  }
+                  else
+                  if (passwordController.text != passwordAgainController.text) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Parolalar Eşleşmiyor.")));
+                  }
+                  else {
+                    // Navigator.pushReplacementNamed(context, "/home");
+                    await context.read<UserCubit>().registerUser(
+                        phone: phoneController.text,
+                        email: emailController.text,
+                        isSeller: false,
+                        name: nameController.text,
+                        username: surnameController.text,
+                        address: addressController.text,
+                        password: passwordController.text,
+                        passwordAgain: passwordAgainController.text);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Hesabınız Oluşturuldu. Giriş Yapabilirsiniz.")));
+                  }
+                },
+                child: const Text('KAYDOL'),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CiftcidenTextField(
-                      controller: nameController,
-                      icon: Icons.message_sharp,
-                      text: "İsim"),
-                  CiftcidenTextField(
-                      controller: surnameController ,
-                      icon: Icons.message_sharp,
-                      text: "Soyisim"),
-                  CiftcidenTextField(
-                      controller: phoneController,
-                      icon: Icons.message_sharp,
-                      text: "Telefon Numarası"),
-                  CiftcidenTextField(
-                      controller: emailController,
-                      icon: Icons.message_sharp,
-                      text: "Mail Adresi"),
-                  CiftcidenTextField(
-                      controller: addressController,
-                      icon: Icons.message_sharp,
-                      text: "İkamet Adresi"),
-                  CiftcidenTextField(
-                      controller: passwordController,
-                      icon: Icons.message_sharp,
-                      text: "Parola"),
-                  CiftcidenTextField(
-                      controller: passwordAgainController,
-                      icon: Icons.message_sharp,
-                      text: "Parola Doğrula"),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, "/");
+                    },
+                    child: Text(
+                      'Giriş Yap',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        decoration: _rememberMe
+                            ? TextDecoration.underline
+                            : TextDecoration.none,
+                        decorationColor: Colors.blue,
+                        decorationThickness: 2,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, "/register");
+                    },
+                    child: Text(
+                      'Giriş Yap',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        decoration: _rememberMe
+                            ? TextDecoration.underline
+                            : TextDecoration.none,
+                        decorationColor: Colors.blue,
+                        decorationThickness: 2,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Login Butonuna Tıklanınca Yapılacak İşlemler
-                if (
-                phoneController.text.isNotEmpty ||
-                    nameController.text.isNotEmpty ||
-                    surnameController.text.isNotEmpty ||
-                    emailController.text.isNotEmpty ||
-                    addressController.text.isNotEmpty ||
-                    passwordController.text.isNotEmpty ||
-                    passwordAgainController.text.isNotEmpty
-                ) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Lütfen Tüm Alanları Doldurunuz.")));
-                }
-                else
-                if (passwordController.text != passwordAgainController.text) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Parolalar Eşleşmiyor.")));
-                }
-                else {
-                  // Navigator.pushReplacementNamed(context, "/home");
-                  context.read<UserCubit>().registerUser(
-                      phone: phoneController.text,
-                      email: emailController.text,
-                      isSeller: false,
-                      name: nameController.text,
-                      username: surnameController.text,
-                      address: addressController.text,
-                      password: passwordController.text,
-                      passwordAgain: passwordAgainController.text);
-                }
-              },
-              child: const Text('KAYDOL'),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, "/");
-                  },
-                  child: Text(
-                    'Giriş Yap',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      decoration: _rememberMe
-                          ? TextDecoration.underline
-                          : TextDecoration.none,
-                      decorationColor: Colors.blue,
-                      decorationThickness: 2,
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, "/register");
-                  },
-                  child: Text(
-                    'Giriş Yap',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      decoration: _rememberMe
-                          ? TextDecoration.underline
-                          : TextDecoration.none,
-                      decorationColor: Colors.blue,
-                      decorationThickness: 2,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

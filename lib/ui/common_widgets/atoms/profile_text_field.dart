@@ -44,7 +44,7 @@ class _ProfileTextFieldState extends State<ProfileTextField> {
               hintStyle: const TextStyle(color: Colors.red),
               border: const OutlineInputBorder(),
               // prefix: Icon(widget.icon),
-              prefix: SvgPicture.asset(widget.iconPath),
+              prefixIcon: SvgPicture.asset(widget.iconPath),
             ),
           ),
         ),

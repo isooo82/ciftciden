@@ -12,9 +12,9 @@ class CiftcidenTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      onChanged: (value){
-        controller.text = "$value 123";
-      },
+      // onChanged: (value){
+      //   controller.text = value;
+      // },
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
         hintText: text,

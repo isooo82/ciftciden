@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "554852653704",
+    "project_id": "ciftciden-8636d",
+    "storage_bucket": "ciftciden-8636d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554852653704:android:bd8956024e6af7fe4b5d3d",
+        "android_client_info": {
+          "package_name": "com.example.ciftciden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554852653704-n6p0ee6j5fq8408cvspe7rqs819npfr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS3mVp_CjJu-HCJ3u5jbV5hq3_dX-bHiE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554852653704-n6p0ee6j5fq8408cvspe7rqs819npfr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

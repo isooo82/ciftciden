@@ -2,62 +2,53 @@ import 'package:ciftciden/data/models/ordered_items_model.dart';
 import 'package:ciftciden/data/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 // Future<UserModel> fetchUserData(
 // {required String userPhone, required String password}) async
-userDataRepository() async {
+class UserDataRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
-  Future<HesapUser?> getHesapUser() async {
+  Future<UserModel?> getHesapUser() async {
     User? user = _firebaseAuth.currentUser;
 
     if (user == null) {
       return null;
     } else if (user.isAnonymous) {
-      return HesapUser(
-        id: "",
-        name: user.displayName!,
-        username: "",
-        email: "",
-        phone: "",
-        anonymous: true,
+      return UserModel(
+        userName: user.displayName!,
+        userSurname: '',
+        email: '',
+        phoneNumber: '',
+        isSeller: false,
+        orderedItemsList: [],
       );
     }
 
     var userDoc =
         await _firebaseFirestore.collection('users').doc(user.uid).get();
 
-    return HesapUser(
-      id: user.uid,
-      name: userDoc['name'],
-      username: userDoc['username'],
+    return UserModel(
+      userName: userDoc['user_name'],
+      userSurname: userDoc['user-surname'],
       email: userDoc['email'],
-      phone: userDoc['phone'],
-      anonymous: false,
+      phoneNumber: userDoc['phone'],
+      isSeller: userDoc['is_seller'],
+      orderedItemsList: [],
     );
   }
 
   signIn(String email, String password) async {
     try {
-      if (email.isEmpty || password.isEmpty) {
-        throw HesapException("Lütfen tüm alanları doldurun.");
-      }
-
       await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-
-      if (!_firebaseAuth.currentUser!.emailVerified) {
-        throw HesapException("Lütfen e-postanızı doğrulayın");
-      }
     } on FirebaseAuthException catch (error) {
       switch (error.code) {
         case 'user-not-found':
-          throw HesapException("Kullanıcı bulunamadı.");
         case 'wrong-password':
-          throw HesapException("Hatalı şifre girdiniz.");
       }
     }
   }
@@ -74,31 +65,13 @@ userDataRepository() async {
     required String name,
     required String username,
     required String email,
+    required String address,
     required String phone,
     required String password,
+    required bool isSeller,
     required String passwordAgain,
   }) async {
     try {
-      if (name.isEmpty ||
-          username.isEmpty ||
-          email.isEmpty ||
-          phone.isEmpty ||
-          password.isEmpty) {
-        throw HesapException("Lütfen tüm alanları doldurun.");
-      }
-
-      if (!Validators.isEmailValid(email)) {
-        throw HesapException('E-posta adresi geçerli değil.');
-      }
-
-      if (password != passwordAgain) {
-        throw HesapException('Girdiğiniz şifreler uyuşmuyor.');
-      }
-
-      if (password.length < 6) {
-        throw HesapException('Şifre 6 karakterden kısa olamaz.');
-      }
-
       var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -106,18 +79,24 @@ userDataRepository() async {
 
       userCredential.user!.sendEmailVerification();
 
-      String _userId = _firebaseAuth.currentUser!.uid;
+      String userId = _firebaseAuth.currentUser!.uid;
 
-      _firebaseFirestore.collection('users').doc(_userId).set(
-          {'name': name, 'username': username, 'email': email, 'phone': phone});
+      _firebaseFirestore.collection('users').doc(userId).set({
+        'user_name': name,
+        'user_surname': username,
+        'is_seller': isSeller,
+        'email': email,
+        'address': address,
+        'phone': phone,
+        "created_at": FieldValue.serverTimestamp()
+      });
     } on FirebaseAuthException catch (error) {
       switch (error.code) {
         case 'email-already-in-use':
-          throw HesapException(
-              'Bu e-posta ile kayıtlı bir kullanıcı zaten var.');
+          debugPrint("email already in use");
+          break;
         default:
-          throw HesapException(
-              'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+          debugPrint("other");
       }
     }
   }
@@ -126,25 +105,25 @@ userDataRepository() async {
     _firebaseAuth.signOut();
   }
 
-  updateTheProfile() {}
-  await _firebaseFirestore.collection('users').doc(_userId).get().then(
-        (snapshot) => {
-          snapshot.reference.set(
-            {
-              'name': updatedHesapUser.name,
-              'username': updatedHesapUser.username,
-              'email': updatedHesapUser.email,
-              'phone': updatedHesapUser.phone,
-            },
-            SetOptions(merge: true),
-          ),
-        },
-      );
-  return UserModel(
-      userName: "userName",
-      userSurname: "userSurname",
-      email: "email",
-      phoneNumber: "phoneNumber",
-      isSeller: false,
-      orderedItemsList: <OrderedItems>[]);
+// updateTheProfile({required String userId}) async {
+// // await _firebaseFirestore.collection('users').doc(userId).get().then(
+// //       (snapshot) => {
+// //         snapshot.reference.set(
+// //           {
+// //             'name': updatedHesapUser.name,
+// //             'username': updatedHesapUser.username,
+// //             'email': updatedHesapUser.email,
+// //             'phone': updatedHesapUser.phone,
+// //           },
+// //           SetOptions(merge: true),
+// //         ),
+// //       },
+// //     );
+// return UserModel(
+//     userName: "userName",
+//     userSurname: "userSurname",
+//     email: "email",
+//     phoneNumber: "phoneNumber",
+//     isSeller: false,
+//     orderedItemsList: <OrderedItems>[]);
 }

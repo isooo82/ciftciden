@@ -1,5 +1,6 @@
 import 'package:ciftciden/cubit/seller/seller_cubit.dart';
 import 'package:ciftciden/cubit/user/user_cubit.dart';
+import 'package:ciftciden/data/repositories/user_data_repository.dart';
 import 'package:ciftciden/ui/screens/home/home_screen.dart';
 import 'package:ciftciden/ui/screens/log_in/login_screen.dart';
 import 'package:ciftciden/ui/screens/log_in/sub_screens/register/register.dart';
@@ -15,7 +16,7 @@ class CiftcidenApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => UserCubit()),
+        BlocProvider(create: (context) => UserCubit(userDataRepository: UserDataRepository())),
         BlocProvider(create: (context) => SellerCubit()),
         // BlocProvider(
         //     create: (context) => AvatarCubit(

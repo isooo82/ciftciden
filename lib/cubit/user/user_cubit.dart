@@ -7,12 +7,13 @@ part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
   late UserModel userData;
+  final UserDataRepository userDataRepository;
 
-  UserCubit() : super(const UserInitial());
+  UserCubit({required this.userDataRepository}) : super(const UserInitial());
 
   Future<bool> loginUser(
       {required String userPhone, required String password}) async {
-    userData = await fetchUserData(userPhone: userPhone, password: password);
+    // userData = await fetchUserData(userPhone: userPhone, password: password);
     if (userData != null) {
       return true;
     } else {
@@ -20,5 +21,23 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-  registerUser() {}
+  registerUser({
+    required String name,
+    required String username,
+    required String email,
+    required String phone,
+    required String password,
+    required bool isSeller,
+    required String address,
+    required String passwordAgain,
+  }) {
+    userDataRepository.signUp(name: name,
+        username: username,
+        email: email,
+        address: address,
+        phone: phone,
+        password: password,
+        isSeller: isSeller,
+        passwordAgain: passwordAgain);
+  }
 }

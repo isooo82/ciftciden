@@ -1,8 +1,10 @@
+import 'package:ciftciden/cubit/user/user_cubit.dart';
 import 'package:ciftciden/ui/common_widgets/atoms/ciftciden_text_field.dart';
 import 'package:ciftciden/ui/common_widgets/atoms/custom_blue_button.dart';
 import 'package:ciftciden/ui/common_widgets/organisms/upper_place_holder.dart';
 import 'package:ciftciden/ui/constants/paths.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,6 +17,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _passwordVisible = false;
   bool _rememberMe = false;
+
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +35,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   const UpperPlaceHolder(),
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 4.h),
+                    EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 4.h),
                     child: Column(
                       children: [
-                        const CiftcidenTextField(
+                        CiftcidenTextField(
+                            controller: phoneController,
                             icon: Icons.phone_android,
                             text: "Telefon Numaranızı Girin"),
-                        const CiftcidenTextField(
-                            icon: Icons.lock, text: "Parolanızı girin"),
+                        CiftcidenTextField(
+                            controller: passwordController,
+                            icon: Icons.lock,
+                            text: "Parolanızı girin"),
                         const SizedBox(height: 10),
                         Row(
                           children: [
@@ -67,8 +75,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 4.h),
                         CustomBlueButton(
                             text: 'Giriş Yap',
-                            onPressed: () => Navigator.of(context)
-                                .pushReplacementNamed("/home")),
+                            onPressed: () async {
+                              final String userPhone = phoneController.text;
+                              final String userPassword = passwordController
+                                  .text;
+
+                              if(userPassword.isEmpty | userPhone.isEmpty){
+                                print("Hatali, doldur");
+                              } else {
+                                final bool userExist = await context.read<UserCubit>().loginUser(
+                                    userPhone: userPhone, password: userPassword);
+                                if(userExist){
+
+                                  Navigator.of(context)
+                                      .pushReplacementNamed("/home");
+                                } else {
+                                  print("No user");
+                                }
+                                }
+
+                            }),
                         // ElevatedButton(
                         //   onPressed: () {
                         //     // Login Butonuna Tıklanınca Yapılacak İşlemler

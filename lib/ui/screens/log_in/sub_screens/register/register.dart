@@ -12,6 +12,11 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool _rememberMe = false;
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordAgainController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +28,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.w),
               child: Column(
-                children: const [
+                children: [
                   CiftcidenTextField(
-                      icon: Icons.message_sharp, text: "Telefon Numarası"),
+                      controller: phoneController,
+                      icon: Icons.message_sharp,
+                      text: "Telefon Numarası"),
                   CiftcidenTextField(
-                      icon: Icons.message_sharp, text: "Mail Adresi"),
+                      controller: emailController,
+                      icon: Icons.message_sharp,
+                      text: "Mail Adresi"),
                   CiftcidenTextField(
-                      icon: Icons.message_sharp, text: "İkamet Adresi"),
-                  CiftcidenTextField(icon: Icons.message_sharp, text: "Parola"),
+                      controller: addressController,
+                      icon: Icons.message_sharp,
+                      text: "İkamet Adresi"),
                   CiftcidenTextField(
-                      icon: Icons.message_sharp, text: "Parola Doğrula"),
+                      controller: passwordController,
+                      icon: Icons.message_sharp,
+                      text: "Parola"),
+                  CiftcidenTextField(
+                      controller: passwordAgainController,
+                      icon: Icons.message_sharp,
+                      text: "Parola Doğrula"),
                 ],
               ),
             ),
@@ -46,9 +62,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 TextButton(
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.pushReplacementNamed(context, "/");
                   },
                   child: Text(
@@ -65,8 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: (){
-
+                  onPressed: () {
                     Navigator.pushReplacementNamed(context, "/register");
                   },
                   child: Text(
@@ -84,7 +98,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ],
             ),
-
           ],
         ),
       ),

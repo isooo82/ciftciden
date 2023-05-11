@@ -1,6 +1,7 @@
 import 'package:ciftciden/cubit/user/user_cubit.dart';
 import 'package:ciftciden/ui/common_widgets/atoms/ciftciden_text_field.dart';
 import 'package:ciftciden/ui/common_widgets/atoms/custom_blue_button.dart';
+import 'package:ciftciden/ui/common_widgets/molecules/custom_snack_bar.dart';
 import 'package:ciftciden/ui/common_widgets/organisms/upper_place_holder.dart';
 import 'package:ciftciden/ui/constants/paths.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const UpperPlaceHolder(),
                   Padding(
                     padding:
-                    EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 4.h),
+                        EdgeInsets.symmetric(horizontal: 7.5.w, vertical: 4.h),
                     child: Column(
                       children: [
                         CiftcidenTextField(
@@ -77,23 +78,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: 'Giriş Yap',
                             onPressed: () async {
                               final String userPhone = phoneController.text;
-                              final String userPassword = passwordController
-                                  .text;
-
-                              if(userPassword.isEmpty | userPhone.isEmpty){
+                              final String userPassword =
+                                  passwordController.text;
+                              if (userPassword.isEmpty | userPhone.isEmpty) {
                                 print("Hatali, doldur");
+                                showSnackBar(text: "Lütfen tüm alanları doldurunuz!");
                               } else {
-                                final bool userExist = await context.read<UserCubit>().loginUser(
-                                    userPhone: userPhone, password: userPassword);
-                                if(userExist){
-
+                                final bool userExist = await context
+                                    .read<UserCubit>()
+                                    .loginUser(
+                                        userPhone: userPhone,
+                                        password: userPassword);
+                                if (userExist) {
+                                  if(!mounted) return;
                                   Navigator.of(context)
                                       .pushReplacementNamed("/home");
                                 } else {
+                                  showSnackBar(text: "Kullanıcı bulunamadı");
                                   print("No user");
                                 }
-                                }
-
+                              }
                             }),
                         // ElevatedButton(
                         //   onPressed: () {
@@ -155,5 +159,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  showSnackBar({required String text}){
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(
+                text)));
   }
 }

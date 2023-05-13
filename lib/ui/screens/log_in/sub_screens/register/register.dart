@@ -31,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       nameController.value = nameController.value.copyWith(
         text: text,
         selection:
-        TextSelection(baseOffset: text.length, extentOffset: text.length),
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
@@ -40,7 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       nameController.value = nameController.value.copyWith(
         text: text,
         selection:
-        TextSelection(baseOffset: text.length, extentOffset: text.length),
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
@@ -49,7 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       nameController.value = nameController.value.copyWith(
         text: text,
         selection:
-        TextSelection(baseOffset: text.length, extentOffset: text.length),
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
@@ -58,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       nameController.value = nameController.value.copyWith(
         text: text,
         selection:
-        TextSelection(baseOffset: text.length, extentOffset: text.length),
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
@@ -67,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       nameController.value = nameController.value.copyWith(
         text: text,
         selection:
-        TextSelection(baseOffset: text.length, extentOffset: text.length),
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
@@ -76,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       nameController.value = nameController.value.copyWith(
         text: text,
         selection:
-        TextSelection(baseOffset: text.length, extentOffset: text.length),
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
@@ -85,7 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       nameController.value = nameController.value.copyWith(
         text: text,
         selection:
-        TextSelection(baseOffset: text.length, extentOffset: text.length),
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
@@ -105,31 +105,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     CiftcidenTextField(
                         controller: nameController,
+                        textInputType: TextInputType.text,
                         icon: Icons.message_sharp,
                         text: "İsim"),
                     CiftcidenTextField(
-                        controller: surnameController ,
+                        controller: surnameController,
+                        textInputType: TextInputType.text,
                         icon: Icons.message_sharp,
                         text: "Soyisim"),
                     CiftcidenTextField(
                         controller: phoneController,
+                        textInputType: TextInputType.phone,
                         icon: Icons.message_sharp,
                         text: "Telefon Numarası"),
                     CiftcidenTextField(
                         controller: emailController,
+                        textInputType: TextInputType.emailAddress,
                         icon: Icons.message_sharp,
                         text: "Mail Adresi"),
                     CiftcidenTextField(
                         controller: addressController,
                         icon: Icons.message_sharp,
+                        textInputType: TextInputType.streetAddress,
                         text: "İkamet Adresi"),
                     CiftcidenTextField(
                         controller: passwordController,
+                        isPassword: true,
                         icon: Icons.message_sharp,
                         text: "Parola"),
                     CiftcidenTextField(
                         controller: passwordAgainController,
                         icon: Icons.message_sharp,
+                        isPassword: true,
                         text: "Parola Doğrula"),
                   ],
                 ),
@@ -137,24 +144,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ElevatedButton(
                 onPressed: () async {
                   // Login Butonuna Tıklanınca Yapılacak İşlemler
-                  if (
-                  phoneController.text.isEmpty ||
+                  if (phoneController.text.isEmpty ||
                       nameController.text.isEmpty ||
                       surnameController.text.isEmpty ||
                       emailController.text.isEmpty ||
                       addressController.text.isEmpty ||
                       passwordController.text.isEmpty ||
-                      passwordAgainController.text.isEmpty
-                  ) {
+                      passwordAgainController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Lütfen Tüm Alanları Doldurunuz.")));
-                  }
-                  else
-                  if (passwordController.text != passwordAgainController.text) {
+                  } else if (passwordController.text !=
+                      passwordAgainController.text) {
                     ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Parolalar Eşleşmiyor.")));
-                  }
-                  else {
+                  } else {
                     // Navigator.pushReplacementNamed(context, "/home");
                     await context.read<UserCubit>().registerUser(
                         phone: phoneController.text,
@@ -165,11 +168,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         address: addressController.text,
                         password: passwordController.text,
                         passwordAgain: passwordAgainController.text);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Hesabınız Oluşturuldu. Giriş Yapabilirsiniz.")));
+                    if (!mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                            "Hesabınız Oluşturuldu. Giriş Yapabilirsiniz.")));
                   }
                 },
-                child: const Text('KAYDOL'),
+                child: const Text('GÖNDER'),
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -197,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Navigator.pushReplacementNamed(context, "/register");
                     },
                     child: Text(
-                      'Giriş Yap',
+                      'Kayıt Ol',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

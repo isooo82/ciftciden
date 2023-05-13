@@ -10,7 +10,7 @@ class UserDataRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
-  Future<UserModel?> getHesapUser() async {
+  Future<UserModel?> getUser() async {
     User? user = _firebaseAuth.currentUser;
 
     if (user == null) {
@@ -61,6 +61,72 @@ class UserDataRepository {
         );
   }
 
+  verifyPhone(
+      {required String name,
+      required String username,
+      required String email,
+      required String address,
+      required String phone,
+      required String password,
+      required bool isSeller,
+      required String passwordAgain}) async {
+    print("Phone Authentication");
+    print("Phone Authentication");
+    print("Phone Authentication");
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final Map<String, dynamic> authenticationData = {
+      'verificationId': null,
+      'resendToken': null,
+    };
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: phone,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        // await auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
+
+        // Handle other errors
+      },
+      codeSent: (String verificationId, int? resendToken) {},
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+    return authenticationData;
+  }
+
+  verifyAndSignUp(
+      {required String name,
+      required String username,
+      required String email,
+      required String address,
+      required String phone,
+      required String password,
+      required bool isSeller,
+      required String passwordAgain}) async {
+    print("Phone Authentication");
+    print("Phone Authentication");
+    print("Phone Authentication");
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: phone,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
+
+        // Handle other errors
+      },
+      codeSent: (String verificationId, int? resendToken) {},
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+  }
+
   signUp({
     required String name,
     required String username,
@@ -71,6 +137,7 @@ class UserDataRepository {
     required bool isSeller,
     required String passwordAgain,
   }) async {
+    print("Email and Password Authentication");
     try {
       var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -126,4 +193,50 @@ class UserDataRepository {
 //     phoneNumber: "phoneNumber",
 //     isSeller: false,
 //     orderedItemsList: <OrderedItems>[]);
+
+  // Getting the orders
+  // Stream<QuerySnapshot<Map<String, dynamic>>> getTheUserOrders({
+  //   required String userId,
+  // }) {
+  //   String query = "orders/";
+  //   _firebaseFirestore.collection(query).where("user_id", isEqualTo: userId)
+  //       .get()
+  //       .then((QuerySnapshot querySnapshot) => {
+  //   querySnapshot.forEach((doc) => {
+  //   console.log(doc.id, " => ", doc.data());
+  //   // Do something with the order document here
+  //   });
+  //   }).catch((error) => {
+  //   console.log("Error getting orders: ", error);
+  //   });
+  //
+  //   return _firebaseFirestore.collection(query).snapshots
+  //   (
+  //   );
+  // }
+
+  Future<void> addOrder({
+    required String userId,
+    required String sellerId,
+    required String situation,
+    required String date,
+    required List<String> orderedItems,
+    required FieldValue createdAt,
+  }) {
+    // Call the user's CollectionReference to add a new user
+    CollectionReference orders =
+        FirebaseFirestore.instance.collection('orders');
+    return orders
+        .add({
+          'user_id': userId,
+          'seller_id': sellerId,
+          'situation': situation,
+          'date': date,
+          'ordered_items': orderedItems,
+          'created_at': createdAt,
+          // John Doe
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
 }

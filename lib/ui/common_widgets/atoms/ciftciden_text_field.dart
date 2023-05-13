@@ -4,8 +4,16 @@ class CiftcidenTextField extends StatelessWidget {
   final String text;
   final IconData icon;
   final TextEditingController controller;
+  final bool isPassword;
+  final TextInputType textInputType;
 
-  const CiftcidenTextField({Key? key, required this.controller, required this.icon, required this.text})
+  const CiftcidenTextField(
+      {Key? key,
+      required this.controller,
+      required this.icon,
+      required this.text,
+      this.textInputType = TextInputType.text,
+      this.isPassword = false})
       : super(key: key);
 
   @override
@@ -15,6 +23,8 @@ class CiftcidenTextField extends StatelessWidget {
       // onChanged: (value){
       //   controller.text = value;
       // },
+      keyboardType: textInputType,
+      obscureText: isPassword,
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
         hintText: text,
@@ -27,7 +37,6 @@ class CiftcidenTextField extends StatelessWidget {
           color: Color(0xFFA6A6A6),
         ),
       ),
-    )
-    ;
+    );
   }
 }

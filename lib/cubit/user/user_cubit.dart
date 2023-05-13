@@ -21,6 +21,32 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+
+
+
+
+  phoneAuthentication({
+    required String name,
+    required String username,
+    required String email,
+    required String phone,
+    required String password,
+    required bool isSeller,
+    required String address,
+    required String passwordAgain,
+  }) async {
+    return await userDataRepository.verifyPhone(name: name,
+        username: username,
+        email: email,
+        address: address,
+        phone: phone,
+        password: password,
+        isSeller: isSeller,
+        passwordAgain: passwordAgain);
+
+
+  }
+
   registerUser({
     required String name,
     required String username,

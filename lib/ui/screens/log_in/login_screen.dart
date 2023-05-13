@@ -77,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         CustomBlueButton(
                             text: 'Giriş Yap',
                             onPressed: () async {
+                              return;
                               Navigator.of(context)
                                   .pushReplacementNamed("/home");
                               return;
@@ -142,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushReplacementNamed(context, "/register");
                       },
                       child: Text(
-                        'Giriş Yap',
+                        'Kayıt Ol',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

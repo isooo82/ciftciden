@@ -19,16 +19,28 @@ class VerifyPhoneScreen extends StatefulWidget {
 class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
   final _formKey = GlobalKey<FormState>();
   final _codeController = TextEditingController();
-  late String verificationId;
-  late int resendToken;
+  String verificationId = "";
+  int resendToken = 0;
+  final auth = FirebaseAuth.instance;
 
   Future<void> _verifyCode() async {
     try {
+      print("Verification ID: $verificationId");
+      print("ResendToken: $resendToken");
+      print("Code: ${_codeController.text.trim()}");
+
       final credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
         smsCode: _codeController.text.trim(),
       );
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      var result = await auth.signInWithCredential(credential);
+
+      if(result.user != null){
+        print("NAVIGATING TO MAIN SCREEN");
+        print(result.user!.uid);
+        if(!mounted) return;
+        Navigator.of(context).pop();
+      }
       // TODO: Navigate to the next screen after successful verification
     } catch (e) {
       print('Failed to verify phone number: $e');
@@ -38,7 +50,6 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
 
   Future<void> _resendCode() async {
     try {
-      final auth = FirebaseAuth.instance;
       verificationCompleted(AuthCredential credential) async {
         await auth.signInWithCredential(credential);
         // TODO: Navigate to the next screen after successful verification
@@ -62,14 +73,34 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
         });
       }
 
-      await auth.verifyPhoneNumber(
-        phoneNumber: widget.phoneNumber,
-        verificationCompleted: verificationCompleted,
-        verificationFailed: verificationFailed,
-        codeSent: codeSent,
-        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-        timeout: const Duration(seconds: 60),
-        forceResendingToken: resendToken,
+      // await auth.verifyPhoneNumber(
+      //   phoneNumber: widget.phoneNumber,
+      //   verificationCompleted: verificationCompleted,
+      //   verificationFailed: verificationFailed,
+      //   codeSent: codeSent,
+      //   codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      //   timeout: const Duration(seconds: 60),
+      //   forceResendingToken: resendToken,
+      // );
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: '+90 5551432027',
+        verificationCompleted: (PhoneAuthCredential credential) {
+          print("VERIFICATION COMPLETED: $credential");
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          print("VERIFICATION FAILED");
+          print("Error: ${e.message}");
+        },
+        codeSent: (String verification, int? resend) {
+          print("CODE SENT");
+          print("Verification id: $verification");
+          print("resendToken: $resend");
+          setState(() {
+            verificationId = verification;
+            resendToken = resend!;
+          });
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
       );
       // TODO: Show a success message after the code is sent
     } catch (e) {

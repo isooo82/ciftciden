@@ -57,7 +57,7 @@ class UserCubit extends Cubit<UserState> {
     required String address,
     required String passwordAgain,
   }) async {
-    await userDataRepository.signUp(name: name,
+    await userDataRepository.signUpWithEmail(name: name,
         username: username,
         email: email,
         address: address,

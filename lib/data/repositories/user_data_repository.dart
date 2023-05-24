@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-// Future<UserModel> fetchUserData(
-// {required String userPhone, required String password}) async
 class UserDataRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -127,7 +125,7 @@ class UserDataRepository {
     );
   }
 
-  signUp({
+  signUpWithEmail({
     required String name,
     required String username,
     required String email,
@@ -215,6 +213,7 @@ class UserDataRepository {
   //   );
   // }
 
+  // Adding
   Future<void> addOrder({
     required String userId,
     required String sellerId,
@@ -236,6 +235,32 @@ class UserDataRepository {
           'created_at': createdAt,
           // John Doe
         })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
+
+  //  TODO: read Orders
+  Future<void> readOrders({
+    required String userId,
+    required String sellerId,
+    required String situation,
+    required String date,
+    required List<String> orderedItems,
+    required FieldValue createdAt,
+  }) {
+    // Call the user's CollectionReference to add a new user
+    CollectionReference orders =
+    FirebaseFirestore.instance.collection('orders');
+    return orders
+        .add({
+      'user_id': userId,
+      'seller_id': sellerId,
+      'situation': situation,
+      'date': date,
+      'ordered_items': orderedItems,
+      'created_at': createdAt,
+      // John Doe
+    })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }

@@ -4,6 +4,7 @@ import 'package:ciftciden/ui/common_widgets/atoms/custom_blue_button.dart';
 import 'package:ciftciden/ui/common_widgets/molecules/custom_snack_bar.dart';
 import 'package:ciftciden/ui/common_widgets/organisms/upper_place_holder.dart';
 import 'package:ciftciden/ui/constants/paths.dart';
+import 'package:ciftciden/ui/screens/log_in/sub_screens/phone_authentication/phone_authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -77,6 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         CustomBlueButton(
                             text: 'Giriş Yap',
                             onPressed: () async {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => VerifyPhoneScreen(phoneNumber: "+905551432027"),
+                                ));
                               return;
                               Navigator.of(context)
                                   .pushReplacementNamed("/home");

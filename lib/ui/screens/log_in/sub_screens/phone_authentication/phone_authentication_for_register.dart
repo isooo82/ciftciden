@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pinput/pinput.dart';
 
-class VerifyPhoneScreen extends StatefulWidget {
+class VerifyPhoneScreenForRegister extends StatefulWidget {
   String phoneNumber;
 
-  VerifyPhoneScreen({
+  VerifyPhoneScreenForRegister({
     super.key,
     required this.phoneNumber,
     // required this.verificationId,
@@ -13,10 +13,10 @@ class VerifyPhoneScreen extends StatefulWidget {
   });
 
   @override
-  _VerifyPhoneScreenState createState() => _VerifyPhoneScreenState();
+  _VerifyPhoneScreenForRegisterState createState() => _VerifyPhoneScreenForRegisterState();
 }
 
-class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
+class _VerifyPhoneScreenForRegisterState extends State<VerifyPhoneScreenForRegister> {
   final _formKey = GlobalKey<FormState>();
   final _codeController = TextEditingController();
   String verificationId = "";
@@ -49,11 +49,14 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
         print(result.user!.uid);
         if (!mounted) return;
         // return "tamam";
-        Navigator.of(context).popAndPushNamed('/home');
+        Navigator.of(context).pop(true);
+      } else {
+        if(!mounted) return;
+        Navigator.of(context).pop(false);
       }
       // TODO: Navigate to the next screen after successful verification
     } catch (e) {
-
+      Navigator.of(context).pop(false);
       // return "Pin uyumsuz";
       print('Failed to verify phone number: $e');
       // TODO: Handle verification failure (e.g. show an error message)

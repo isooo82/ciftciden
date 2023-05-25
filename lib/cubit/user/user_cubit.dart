@@ -13,7 +13,7 @@ class UserCubit extends Cubit<UserState> {
 
   Future<bool> loginUser(
       {required String userPhone, required String password}) async {
-    // userData = await fetchUserData(userPhone: userPhone, password: password);
+    // userData = await userDataRepositoryfetchUserData(userPhone: userPhone, password: password);
     if (userData != null) {
       return true;
     } else {
@@ -25,24 +25,12 @@ class UserCubit extends Cubit<UserState> {
 
 
 
-  phoneAuthentication({
-    required String name,
-    required String username,
-    required String email,
+  verifyUserExistsWithPhone({
     required String phone,
-    required String password,
-    required bool isSeller,
-    required String address,
-    required String passwordAgain,
   }) async {
-    return await userDataRepository.verifyPhone(name: name,
-        username: username,
-        email: email,
-        address: address,
+    return await userDataRepository.verifyUserExistsWithPhone(
         phone: phone,
-        password: password,
-        isSeller: isSeller,
-        passwordAgain: passwordAgain);
+);
 
 
   }

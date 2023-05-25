@@ -1,6 +1,7 @@
 import 'package:ciftciden/cubit/user/user_cubit.dart';
 import 'package:ciftciden/ui/common_widgets/atoms/ciftciden_text_field.dart';
 import 'package:ciftciden/ui/common_widgets/organisms/upper_place_holder.dart';
+import 'package:ciftciden/ui/screens/log_in/sub_screens/phone_authentication/phone_authentication_for_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -19,8 +20,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordAgainController = TextEditingController();
+
+  // final TextEditingController passwordController = TextEditingController();
+  // final TextEditingController passwordAgainController = TextEditingController();
 
   @override
   void initState() {
@@ -31,64 +33,64 @@ class _RegisterScreenState extends State<RegisterScreen> {
       nameController.value = nameController.value.copyWith(
         text: text,
         selection:
-            TextSelection(baseOffset: text.length, extentOffset: text.length),
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
     surnameController.addListener(() {
-      final String text = nameController.text.toLowerCase();
-      nameController.value = nameController.value.copyWith(
+      final String text = surnameController.text.toLowerCase();
+      surnameController.value = surnameController.value.copyWith(
         text: text,
         selection:
-            TextSelection(baseOffset: text.length, extentOffset: text.length),
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
     phoneController.addListener(() {
-      final String text = nameController.text.toLowerCase();
-      nameController.value = nameController.value.copyWith(
+      final String text = phoneController.text.toLowerCase();
+      phoneController.value = phoneController.value.copyWith(
         text: text,
         selection:
-            TextSelection(baseOffset: text.length, extentOffset: text.length),
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
     emailController.addListener(() {
-      final String text = nameController.text.toLowerCase();
-      nameController.value = nameController.value.copyWith(
+      final String text = emailController.text.toLowerCase();
+      emailController.value = emailController.value.copyWith(
         text: text,
         selection:
-            TextSelection(baseOffset: text.length, extentOffset: text.length),
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
     addressController.addListener(() {
-      final String text = nameController.text.toLowerCase();
-      nameController.value = nameController.value.copyWith(
+      final String text = addressController.text.toLowerCase();
+      addressController.value = addressController.value.copyWith(
         text: text,
         selection:
-            TextSelection(baseOffset: text.length, extentOffset: text.length),
+        TextSelection(baseOffset: text.length, extentOffset: text.length),
         composing: TextRange.empty,
       );
     });
-    passwordController.addListener(() {
-      final String text = nameController.text.toLowerCase();
-      nameController.value = nameController.value.copyWith(
-        text: text,
-        selection:
-            TextSelection(baseOffset: text.length, extentOffset: text.length),
-        composing: TextRange.empty,
-      );
-    });
-    passwordAgainController.addListener(() {
-      final String text = nameController.text.toLowerCase();
-      nameController.value = nameController.value.copyWith(
-        text: text,
-        selection:
-            TextSelection(baseOffset: text.length, extentOffset: text.length),
-        composing: TextRange.empty,
-      );
-    });
+    // passwordController.addListener(() {
+    //   final String text = nameController.text.toLowerCase();
+    //   nameController.value = nameController.value.copyWith(
+    //     text: text,
+    //     selection:
+    //         TextSelection(baseOffset: text.length, extentOffset: text.length),
+    //     composing: TextRange.empty,
+    //   );
+    // });
+    // passwordAgainController.addListener(() {
+    //   final String text = nameController.text.toLowerCase();
+    //   nameController.value = nameController.value.copyWith(
+    //     text: text,
+    //     selection:
+    //         TextSelection(baseOffset: text.length, extentOffset: text.length),
+    //     composing: TextRange.empty,
+    //   );
+    // });
   }
 
   @override
@@ -106,38 +108,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     CiftcidenTextField(
                         controller: nameController,
                         textInputType: TextInputType.text,
-                        icon: Icons.message_sharp,
+                        icon: Icons.drive_file_rename_outline,
                         text: "İsim"),
                     CiftcidenTextField(
                         controller: surnameController,
                         textInputType: TextInputType.text,
-                        icon: Icons.message_sharp,
+                        icon: Icons.drive_file_rename_outline_rounded,
                         text: "Soyisim"),
                     CiftcidenTextField(
                         controller: phoneController,
                         textInputType: TextInputType.phone,
-                        icon: Icons.message_sharp,
+                        icon: Icons.phone_android,
                         text: "Telefon Numarası"),
                     CiftcidenTextField(
                         controller: emailController,
                         textInputType: TextInputType.emailAddress,
-                        icon: Icons.message_sharp,
+                        icon: Icons.email,
                         text: "Mail Adresi"),
                     CiftcidenTextField(
                         controller: addressController,
-                        icon: Icons.message_sharp,
+                        icon: Icons.location_on,
                         textInputType: TextInputType.streetAddress,
                         text: "İkamet Adresi"),
-                    CiftcidenTextField(
-                        controller: passwordController,
-                        isPassword: true,
-                        icon: Icons.message_sharp,
-                        text: "Parola"),
-                    CiftcidenTextField(
-                        controller: passwordAgainController,
-                        icon: Icons.message_sharp,
-                        isPassword: true,
-                        text: "Parola Doğrula"),
+                    // CiftcidenTextField(
+                    //     controller: passwordController,
+                    //     isPassword: true,
+                    //     icon: Icons.message_sharp,
+                    //     text: "Parola"),
+                    // CiftcidenTextField(
+                    //     controller: passwordAgainController,
+                    //     icon: Icons.message_sharp,
+                    //     isPassword: true,
+                    //     text: "Parola Doğrula"),
                   ],
                 ),
               ),
@@ -148,30 +150,62 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       nameController.text.isEmpty ||
                       surnameController.text.isEmpty ||
                       emailController.text.isEmpty ||
-                      addressController.text.isEmpty ||
-                      passwordController.text.isEmpty ||
-                      passwordAgainController.text.isEmpty) {
+                      addressController.text.isEmpty
+                  // passwordController.text.isEmpty ||
+                  // passwordAgainController.text.isEmpty) {
+                  ) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Lütfen Tüm Alanları Doldurunuz.")));
-                  } else if (passwordController.text !=
-                      passwordAgainController.text) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Parolalar Eşleşmiyor.")));
-                  } else {
-                    // Navigator.pushReplacementNamed(context, "/home");
-                    await context.read<UserCubit>().registerUser(
-                        phone: phoneController.text,
-                        email: emailController.text,
-                        isSeller: false,
-                        name: nameController.text,
-                        username: surnameController.text,
-                        address: addressController.text,
-                        password: passwordController.text,
-                        passwordAgain: passwordAgainController.text);
-                    if (!mounted) return;
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text(
-                            "Hesabınız Oluşturuldu. Giriş Yapabilirsiniz.")));
+                  }
+                  // else if () {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //       const SnackBar(content: Text("Parolalar Eşleşmiyor.")));
+                  // }
+                  else {
+                    final bool userExists = await context
+                        .read<UserCubit>()
+                        .verifyUserExistsWithPhone(phone: phoneController.text);
+                    if (userExists) {
+                      if (!mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Bu Telefon Numarası Zaten Kayıtlı.")));
+                      return;
+                    } else {
+                      if (!mounted) return;
+                      final bool hasThePhone =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            VerifyPhoneScreenForRegister(
+                                phoneNumber: phoneController.text),
+                      ));
+                      // Navigator.pushReplacementNamed(context, "/home");
+                      if (hasThePhone) {
+                        if (!mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    "Telefon Numarası Doğrulandı. Kayıt İşleminiz Yapıldı.")));
+                        // await context.read<UserCubit>().registerUser(
+                        //     phone: phoneController.text,
+                        //     email: emailController.text,
+                        //     isSeller: false,
+                        //     name: nameController.text,
+                        //     username: surnameController.text,
+                        //     address: addressController.text,
+                        //     password: passwordController.text,
+                        //     passwordAgain: passwordAgainController.text);
+                        if (!mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    "Hesabınız Oluşturuldu. Giriş Yapabilirsiniz.")));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    "Telefona Ulaşılamıyor, kaydınız yapılamadı.")));
+                      }
+                    }
                   }
                 },
                 child: const Text('GÖNDER'),
@@ -198,9 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, "/register");
-                    },
+                    onPressed: null,
                     child: Text(
                       'Kayıt Ol',
                       style: TextStyle(

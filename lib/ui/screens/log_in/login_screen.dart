@@ -19,9 +19,39 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _passwordVisible = false;
   bool _rememberMe = false;
-
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    phoneController.addListener(() {
+      String text = phoneController.text;
+      text = text.replaceAll(RegExp(r"[.,+()N*/#; -]"), "");
+
+      print(text.length);
+      if (text.length > 10) {
+        print("inside");
+        text = text.substring(0, 10);
+        print(text);
+      }
+      print(text);
+      // if (text.length == 3) {
+      //   text = text + " ";
+      // } else if (text.length == 7) {
+      //   text = text + " ";
+      // }
+
+      phoneController.value = phoneController.value.copyWith(
+        text: text,
+        selection:
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+  }
+
+  // final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,72 +71,89 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         CiftcidenTextField(
-                            controller: phoneController,
-                            icon: Icons.phone_android,
-                            text: "Telefon Numaranızı Girin"),
-                        CiftcidenTextField(
-                            controller: passwordController,
-                            icon: Icons.lock,
-                            text: "Parolanızı girin"),
+                          controller: phoneController,
+                          icon: Icons.phone_android,
+                          text: "Telefon Numaranızı Girin",
+                          textInputType: TextInputType.phone,
+                          prefixText: '+90',
+                        ),
+                        // CiftcidenTextField(
+                        //     controller: passwordController,
+                        //     icon: Icons.lock,
+                        //     text: "Parolanızı girin"),
                         const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _rememberMe,
-                              onChanged: (value) {
-                                setState(() {
-                                  _rememberMe = value!;
-                                });
-                              },
-                            ),
-                            const Text('Parolayı hatırla'),
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            // Forgot Password Tıklanınca Yapılacak İşlemler
-                          },
-                          child: const Text(
-                            'Parolamı unuttum',
-                            style: TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Checkbox(
+                        //       value: _rememberMe,
+                        //       onChanged: (value) {
+                        //         setState(() {
+                        //           _rememberMe = value!;
+                        //         });
+                        //       },
+                        //     ),
+                        //     const Text('Parolayı hatırla'),
+                        //   ],
+                        // ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     // Forgot Password Tıklanınca Yapılacak İşlemler
+                        //   },
+                        //   child: const Text(
+                        //     'Parolamı unuttum',
+                        //     style: TextStyle(
+                        //       color: Colors.blue,
+                        //       decoration: TextDecoration.underline,
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(height: 4.h),
                         CustomBlueButton(
                             text: 'Giriş Yap',
                             onPressed: () async {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => VerifyPhoneScreen(phoneNumber: "+905551432027"),
+                              final String userPhone =
+                                  "+90${phoneController.text.replaceAll(" ", " ")}";
+                              print(userPhone);
+                              // return;
+                              // final String userPassword =
+                              //     passwordController.text;
+                              // context.read<UserCubit>().loginUser(userPhone: userPhone, password: userPassword);
+                              final bool userExists = await context.read<UserCubit>().verifyUserExistsWithPhone(phone: userPhone);
+                              if(userExists) {
+                                if(!mounted) return;
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      VerifyPhoneScreen(phoneNumber: userPhone),
                                 ));
-                              return;
-                              Navigator.of(context)
-                                  .pushReplacementNamed("/home");
-                              return;
-                              final String userPhone = phoneController.text;
-                              final String userPassword =
-                                  passwordController.text;
-                              if (userPassword.isEmpty | userPhone.isEmpty) {
-                                print("Hatali, doldur");
-                                showSnackBar(text: "Lütfen tüm alanları doldurunuz!");
                               } else {
-                                final bool userExist = await context
-                                    .read<UserCubit>()
-                                    .loginUser(
-                                        userPhone: userPhone,
-                                        password: userPassword);
-                                if (userExist) {
-                                  if(!mounted) return;
-                                  Navigator.of(context)
-                                      .pushReplacementNamed("/home");
-                                } else {
-                                  showSnackBar(text: "Kullanıcı bulunamadı");
-                                  print("No user");
-                                }
+                                showSnackBar(text: "Bu numara ile kayıtlı kullanıcı bulunamadı! Lütfen Kayıt Olun");
                               }
+
+                              // return;
+                              // Navigator.of(context)
+                              //     .pushReplacementNamed("/home");
+                              // return;
+                              // final String userPhone = phoneController.text;
+                              // final String userPassword =
+                              //     passwordController.text;
+                              // if (userPassword.isEmpty | userPhone.isEmpty) {
+                              //   print("Hatali, doldur");
+                              //   showSnackBar(text: "Lütfen tüm alanları doldurunuz!");
+                              // } else {
+                              //   final bool userExist = await context
+                              //       .read<UserCubit>()
+                              //       .loginUser(
+                              //           userPhone: userPhone,
+                              //           password: userPassword);
+                              //   if (userExist) {
+                              //     if(!mounted) return;
+                              //     Navigator.of(context)
+                              //         .pushReplacementNamed("/home");
+                              //   } else {
+                              //     showSnackBar(text: "Kullanıcı bulunamadı");
+                              //     print("No user");
+                              //   }
+                              // }
                             }),
                         // ElevatedButton(
                         //   onPressed: () {
@@ -127,9 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, "/");
-                      },
+                      onPressed: null,
                       child: Text(
                         'Giriş Yap',
                         style: TextStyle(
@@ -170,10 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  showSnackBar({required String text}){
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(
-                text)));
+  showSnackBar({required String text}) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 }
